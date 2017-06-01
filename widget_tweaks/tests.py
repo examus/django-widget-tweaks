@@ -372,3 +372,10 @@ class RenderFieldFilter_field_type_widget_type_Test(TestCase):
     def test_field_type_widget_type_rendering_simple(self):
         res = render_form('<div class="{{ form.simple|field_type }} {{ form.simple|widget_type }} {{ form.simple.html_name }}">{{ form.simple }}</div>')
         assertIn('class="charfield textinput simple"', res)
+
+
+class RenderFieldTagUseTemplateTranslationTest(TestCase):
+    def test_use_template_translation_in_parametrs(self):
+        res = render_form('{% render_field form.with_attrs egg+="pahaz" placeholder=_("Placeholder") %}')
+        assertIn('egg="spam pahaz"', res)
+        assertIn('placeholder="Placeholder"', res)
